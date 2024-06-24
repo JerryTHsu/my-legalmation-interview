@@ -51,6 +51,12 @@ PUT /authors/:id
 // Delete specific author
 DELETE /authors/:id
 ```
+### Attributes
+#### name : Name of author
+#### gender : Gender of author
+#### age : age of author
+#### profilePicture : url link of image of author
+
 ```markdown
 // fetch list of all books
 GET /books
@@ -67,3 +73,6 @@ PUT /books/:id
 // Delete specific book
 DELETE /books/:id
 ```
+### Attributes
+#### title: title of book
+#### author: author of book
