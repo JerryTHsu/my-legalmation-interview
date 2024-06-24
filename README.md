@@ -29,3 +29,41 @@ npm run dev
 Options:
 - Refresh state and verify before every change made.
 - If resource entries are in larger numbers, consider moving all resource filtering to the backend. This consideration would be based on a balance between frontend load and backend.
+
+
+## API Description
+
+### Standard CRUD Rest API structure
+
+```markdown
+// fetch list of all authors  
+GET /authors
+
+// create new author
+POST /authors
+
+// fetch specific author
+GET /authors/:id
+
+// Update/Edit specific author
+PUT /authors/:id
+
+// Delete specific author
+DELETE /authors/:id
+```
+```markdown
+// fetch list of all books
+GET /books
+
+// create new book
+POST /books
+
+// fetch specific book
+GET /books/:id
+
+// Update/Edit specific book
+PUT /books/:id
+
+// Delete specific book
+DELETE /books/:id
+```
