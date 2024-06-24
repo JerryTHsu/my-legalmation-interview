@@ -29,6 +29,12 @@ const Input = styled.input`
     font-size: 16px;
 `;
 
+const Select = styled.select`
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 16px;
+`;
+
 const Button = styled.button`
   margin-left: 10px;
   background-color: #ff4747;
@@ -49,9 +55,17 @@ const BooksList: React.FC = () => {
     const books = useSelector((state: RootState) => state.books);
     const authors = useSelector((state: RootState) => state.authors);
     const [titleFilter, setTitleFilter] = useState('');
+    const [filterByAuthorId, setFilterByAuthorId] = useState('');
+
+    // Fetch authors when component mounts
+    useEffect(() => {
+        dispatch(fetchBooks());
+        dispatch(fetchAuthors());
+    }, [dispatch]);
 
     const filteredBooks = books? books.books.filter(book => {
-        return book.title.toLowerCase().includes(titleFilter.toLowerCase());
+        return book.title.toLowerCase().includes(titleFilter.toLowerCase())
+            && (book.authorId === filterByAuthorId || filterByAuthorId === '');
     }):[];
 
     const handleDelete = (id: string) => {
@@ -69,12 +83,6 @@ const BooksList: React.FC = () => {
       navigate(`/books/${id}`);
     }
 
-    // Fetch authors when component mounts
-    useEffect(() => {
-        dispatch(fetchBooks());
-        dispatch(fetchAuthors());
-    }, [dispatch]);
-
     return (
         <>
             <Input
@@ -83,6 +91,17 @@ const BooksList: React.FC = () => {
                 onChange={e => setTitleFilter(e.target.value)}
                 placeholder="Filter by title..."
             />
+            <Select
+                value={filterByAuthorId}
+                onChange={(e) => setFilterByAuthorId(e.target.value)}
+            >
+                <option value="" disabled>Select an author</option>
+                {authors && authors.authors.map((author) => (
+                    <option key={author.id} value={author.id}>
+                        {author.name}
+                    </option>
+                ))}
+            </Select>
             <List>
                 {books && books.books && filteredBooks?
                     filteredBooks.map((book) => (
